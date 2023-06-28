@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "341276640865",
+    "project_id": "apnibookproject",
+    "storage_bucket": "apnibookproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341276640865:android:1fcc8953aa5cdfa8140c20",
+        "android_client_info": {
+          "package_name": "com.example.apnibookproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341276640865-ad1jaeq94ef4hg24uf6ad3fv5t28h89b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDddcPwRC0wxPz5r31CGcgEHf1uWAj7TYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341276640865-ad1jaeq94ef4hg24uf6ad3fv5t28h89b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

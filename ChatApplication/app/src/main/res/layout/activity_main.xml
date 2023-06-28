@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/iv_chat2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="225dp"
+        android:src="@drawable/chat2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="from"
+        android:textSize="20sp"
+        android:textColor="@color/blue_grey_300"
+        android:layout_above="@+id/ll_meta_logo"
+        android:layout_centerHorizontal="true"/>
+
+   <LinearLayout
+       android:id="@+id/ll_meta_logo"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"
+       android:paddingBottom="100dp"
+       >
+
+       <ImageView
+           android:id="@+id/iv_meta"
+           android:layout_width="50dp"
+           android:layout_height="50dp"
+           android:layout_centerHorizontal="true"
+           android:layout_below="@+id/iv_chat2"
+           android:src="@drawable/meta"/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Meta"
+           android:paddingLeft="5dp"
+           android:layout_marginTop="5dp"
+           android:textStyle="bold"
+           android:textSize="25sp"
+           android:textColor="@color/white"/>
+   </LinearLayout>
+
+</RelativeLayout>

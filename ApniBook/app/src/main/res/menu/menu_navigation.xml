@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/item_home"
+            android:title="Home"
+            android:icon="@drawable/baseline_home_24"/>
+        <item
+            android:id="@+id/item_profile"
+            android:title="Profile"
+            android:icon="@drawable/baseline_person_24"/>
+        <item
+            android:id="@+id/item_notification"
+            android:title="Notification"
+            android:icon="@drawable/baseline_notifications_24"/>
+    </group>
+    <item
+        android:id="@+id/item_other"
+        android:title="Others">
+        <menu>
+            <item
+                android:id="@+id/item_setting"
+                android:title="Setting"/>
+            <item
+                android:id="@+id/item_policy"
+                android:title="Privacy Policy"/>
+            <item
+                android:id="@+id/item_logout"
+                android:title="Logout"/>
+        </menu>
+    </item>
+</menu>
