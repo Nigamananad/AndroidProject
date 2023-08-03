@@ -17,7 +17,7 @@ class HomeListAdapter(var context: Context, var homeCard: MutableList<Home>) :
 
     lateinit var binding: HomeCardViewBinding
 
-    class MyHomeViewHolder(var bind: HomeCardViewBinding) : RecyclerView.ViewHolder(bind.root)
+    class MyHomeViewHolder(var bind:HomeCardViewBinding) : RecyclerView.ViewHolder(bind.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHomeViewHolder {
         binding = HomeCardViewBinding.inflate(LayoutInflater.from(context), parent, false)

@@ -15,13 +15,13 @@ import com.example.androidroomlibrary.model.User
 
 class UserListAdapter(var context: Context, var userList: MutableList<User>) :
     RecyclerView.Adapter<UserListAdapter.MyViewHolder>() {
-    lateinit var db:AppDatabase
+    lateinit var db: AppDatabase
     lateinit var binding: CardViewBinding
 
     class MyViewHolder(var bind: CardViewBinding) : RecyclerView.ViewHolder(bind.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-      binding= CardViewBinding.inflate(LayoutInflater.from(context),parent,false)
+        binding = CardViewBinding.inflate(LayoutInflater.from(context), parent, false)
         return MyViewHolder(binding)
     }
 
@@ -36,32 +36,35 @@ class UserListAdapter(var context: Context, var userList: MutableList<User>) :
 
         holder.bind.cardView.setOnLongClickListener {
 
-           AlertDialog.Builder(context).apply {
+            AlertDialog.Builder(context).apply {
                 setTitle("Delete")
                     .setMessage("you are delete the item")
-                    .setPositiveButton("Yes",DialogInterface.OnClickListener { dialogInterface, i ->
-                        db=Room.databaseBuilder(context,AppDatabase::class.java, name = "dixit.db").allowMainThreadQueries().build()
-                        db.userdao().deleteuser(user)
-                        notifyItemRemoved(position)
-                        userList.removeAt(position)
-                    })
-                    .setNegativeButton("No",DialogInterface.OnClickListener { dialogInterface, i ->
+                    .setPositiveButton(
+                        "Yes",
+                        DialogInterface.OnClickListener { dialogInterface, i ->
+                            db = Room.databaseBuilder(
+                                context,
+                                AppDatabase::class.java,
+                                name = "dixit.db"
+                            ).allowMainThreadQueries().build()
+                            db.userdao().deleteuser(user)
+                            notifyItemRemoved(position)
+                            userList.removeAt(position)
+                        })
+                    .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
 
                     })
             }.show()
             return@setOnLongClickListener true
         }
 
-
-
         holder.bind.cardView.setOnClickListener {
             var intent = Intent(context, UpdateActivity::class.java)
             intent.putExtra("USER", user)
             context.startActivity(intent)
         }
-
-
     }
+
     fun setitem(userList: MutableList<User>) {
         this.userList = userList
         notifyDataSetChanged()

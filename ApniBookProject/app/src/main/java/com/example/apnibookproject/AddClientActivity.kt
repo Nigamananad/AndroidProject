@@ -15,8 +15,7 @@ class AddClientActivity : AppCompatActivity() {
         binding = ActivityAddClientBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        mRef = FirebaseDatabase.getInstance().reference
-
+        mRef=FirebaseDatabase.getInstance().reference
 
         binding.submitClient.setOnClickListener {
             var clientname = binding.textClientName.text.toString().trim()

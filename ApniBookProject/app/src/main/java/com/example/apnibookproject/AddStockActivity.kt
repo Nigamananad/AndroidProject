@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.apnibookproject.databinding.ActivityAddStockBinding
+import com.example.apnibookproject.dataclass.Client
 import com.example.apnibookproject.dataclass.Stock
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -12,6 +13,8 @@ import com.google.firebase.database.FirebaseDatabase
 class AddStockActivity : AppCompatActivity() {
     lateinit var binding: ActivityAddStockBinding
     lateinit var mRef: DatabaseReference
+
+
     //lateinit var mAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityAddStockBinding.inflate(layoutInflater)

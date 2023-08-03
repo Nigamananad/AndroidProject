@@ -24,9 +24,6 @@ class MainActivity : AppCompatActivity() {
         }
         db= Room.databaseBuilder(this, AppDatabase::class.java, name = "dixit.db").allowMainThreadQueries().build()
 
-
-
-
 //        userList.add(User(1, "TV", "LED"))
 //        userList.add(User(2, "Mobile", "Led"))
 //        userList.add(User(3, "Cable", "LED"))

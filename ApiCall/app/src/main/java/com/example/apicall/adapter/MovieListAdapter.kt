@@ -1,5 +1,6 @@
 package com.example.apicall.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -24,7 +25,7 @@ class MovieListAdapter(var context: Context, var movieList: MutableList<Data>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        var movie = movieList[position]
+        val movie = movieList[position]
         holder.bind.tvName.text = movie.name
         holder.bind.tvCategory.text = movie.category
         holder.bind.tvDescription.text = movie.desc
@@ -35,6 +36,7 @@ class MovieListAdapter(var context: Context, var movieList: MutableList<Data>) :
             .into(holder.bind.ivImage)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setItem(movieList: MutableList<Data>) {
         this.movieList = movieList
         notifyDataSetChanged()

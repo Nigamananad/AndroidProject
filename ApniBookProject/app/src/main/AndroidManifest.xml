@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ApniBookProject"
         tools:targetApi="31">
         <activity
+            android:name=".StockUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ClientUpdateActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddStockActivity"
             android:exported="false" />
         <activity

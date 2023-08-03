@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 //        movieList.add(Data("Action","Good","","Avatar"))
 //        movieList.add(Data("Action","Good","","Avatar"))
 
+        //   https://www.howtodoandroid.com/movielist.json
+
 
         retrofit = Retrofit.Builder()
             .baseUrl("https://www.howtodoandroid.com/")
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 response: Response<MutableList<Data>>
             ) {
 
-                var res = response.body()
+                val res = response.body()
                 movieList=res!!
                 listAdapter.setItem(movieList)
             }
