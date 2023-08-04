@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.demoapplication'
+    namespace 'com.example.multidatawithshareprefrence'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.demoapplication"
+        applicationId "com.example.multidatawithshareprefrence"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -30,13 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
-        viewBinding true
-    }
 }
 
 dependencies {
-
     implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation 'androidx.core:core-ktx:1.8.0'
