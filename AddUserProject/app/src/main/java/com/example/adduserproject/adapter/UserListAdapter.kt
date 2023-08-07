@@ -34,11 +34,22 @@ class UserListAdapter(var context: Context, var userList: MutableList<User>) :
         holder.bind.tvName.text = user.name
         holder.bind.tvDepartment.text = user.department
 
+        holder.bind.likeButton.setOnClickListener {
+            user.likeCount++
+            notifyItemChanged(position)
+        }
+
+        holder.bind.dislikeButton.setOnClickListener {
+            user.dislikeCount++
+            notifyItemChanged(position)
+        }
+
         holder.bind.cardView.setOnClickListener {
             var intent = Intent(context, UpdateActivity::class.java)
             intent.putExtra("DATA", user)
             context.startActivity(intent)
         }
+
         holder.bind.cardView.setOnLongClickListener {
             AlertDialog.Builder(context).apply {
                 setTitle("Delete")

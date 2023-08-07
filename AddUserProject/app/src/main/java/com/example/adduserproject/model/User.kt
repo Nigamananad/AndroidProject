@@ -8,14 +8,18 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "user_table")
 data class User(
     @PrimaryKey(autoGenerate = true)
-    var id:Int=0,
+    var id: Int = 0,
     var name: String,
-    var department: String
-):Parcelable {
+    var department: String,
+    var likeCount: Int = 0,
+    var dislikeCount: Int = 0
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString()!!,
-        parcel.readString()!!
+        parcel.readString()!!,
+        parcel.readInt(),
+        parcel.readInt()
     ) {
     }
 
@@ -23,6 +27,8 @@ data class User(
         parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeString(department)
+        parcel.writeInt(likeCount)
+        parcel.writeInt(dislikeCount)
     }
 
     override fun describeContents(): Int {
