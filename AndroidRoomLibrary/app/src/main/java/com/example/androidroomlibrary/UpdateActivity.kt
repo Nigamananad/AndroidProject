@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import androidx.room.Room
 import com.example.androidroomlibrary.database.AppDatabase
 import com.example.androidroomlibrary.databinding.ActivityUpdateBinding
@@ -14,14 +16,18 @@ class UpdateActivity : AppCompatActivity() {
 
     lateinit var db: AppDatabase
 
-    lateinit var binding: ActivityUpdateBinding
+    lateinit var edtName: EditText
+    lateinit var edtDescription: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityUpdateBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_update)
 
         db = Room.databaseBuilder(this, AppDatabase::class.java, name = "dixit.db")
             .allowMainThreadQueries().build()
+
+        edtName = findViewById(R.id.edt_name)
+        edtDescription = findViewById(R.id.edt_description)
 
         // var user = intent.getParcelableExtra("USER",User::class.java)
         var user = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -31,17 +37,14 @@ class UpdateActivity : AppCompatActivity() {
         }
 
         if (user != null) {
-            binding.edtName.setText(user.name)
-            binding.edtDescription.setText(user.description)
-
-
-
+            edtName.setText(user.name)
+            edtDescription.setText(user.description)
         }
 
-        binding.btnUpdate.setOnClickListener {
+        findViewById<Button>(R.id.btn_update).setOnClickListener {
 
-            var name = binding.edtName.text.toString().trim()
-            var desc = binding.edtDescription.text.toString().trim()
+            var name = edtName.text.toString().trim()
+            var desc = edtDescription.text.toString().trim()
 
             var mUser = User(name = name, description = desc, id = user!!.id)
 
