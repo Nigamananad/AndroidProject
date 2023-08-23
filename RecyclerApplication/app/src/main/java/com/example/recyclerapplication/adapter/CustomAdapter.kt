@@ -16,7 +16,7 @@ import com.example.recyclerapplication.model.OnUpdateClickListener
 import com.example.recyclerapplication.model.YourDataItem
 
 class CustomAdapter(
-    private val dataList: MutableList<YourDataItem>,
+    private var dataList: MutableList<YourDataItem>,
     private val onDeleteClickListener: OnDeleteClickListener,
     private val onUpdateClickListener: OnUpdateClickListener
 ) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
@@ -32,6 +32,7 @@ class CustomAdapter(
             LayoutInflater.from(parent.context).inflate(R.layout.item_cardview, parent, false)
         return ViewHolder(itemView)
     }
+
 
     override fun getItemCount(): Int {
         return dataList.size
@@ -52,6 +53,12 @@ class CustomAdapter(
 //            onUpdateClickListener.onUpdateClick(position, currentItem.text1, currentItem.text2)
             showUpdateDialog(holder,position, currentItem)
         }
+    }
+
+    fun filterList(filteredList: List<YourDataItem>) {
+        dataList.clear()
+        dataList.addAll(filteredList)
+        notifyDataSetChanged()
     }
 
     private fun showUpdateDialog(holder:ViewHolder,position: Int, currentItem: YourDataItem) {
