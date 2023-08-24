@@ -23,9 +23,13 @@ class MainActivity : AppCompatActivity(), OnDeleteClickListener, OnUpdateClickLi
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CustomAdapter
     private lateinit var searchView: SearchView
+    private lateinit var edittext1: EditText
+    private lateinit var edittext2: EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        edittext1 = findViewById(R.id.editText1)
+        edittext2 = findViewById(R.id.editText2)
 
         sharedPreferenceUtil = SharedPreferenceUtil(this)
         originalDataList = sharedPreferenceUtil.getDataList().toMutableList()
@@ -51,8 +55,8 @@ class MainActivity : AppCompatActivity(), OnDeleteClickListener, OnUpdateClickLi
 
         val submitButton = findViewById<Button>(R.id.submitButton)
         submitButton.setOnClickListener {
-            val text1 = findViewById<EditText>(R.id.editText1).text.toString()
-            val text2 = findViewById<EditText>(R.id.editText2).text.toString()
+            val text1 = edittext1.text.toString()
+            val text2 = edittext2.text.toString()
 
             if (text1.isNotEmpty() && text2.isNotEmpty()) {
                 dataList.add(YourDataItem(text1, text2))
@@ -60,6 +64,8 @@ class MainActivity : AppCompatActivity(), OnDeleteClickListener, OnUpdateClickLi
                 adapter.notifyDataSetChanged()
                 sharedPreferenceUtil.saveDataList(dataList)
             }
+            edittext1.text.clear()
+            edittext2.text.clear()
 
         }
     }
@@ -94,14 +100,26 @@ class MainActivity : AppCompatActivity(), OnDeleteClickListener, OnUpdateClickLi
 
 
     override fun onDeleteClick(position: Int) {
+        val currentItem = dataList[position]
+        val originalPosition = originalDataList.indexOf(currentItem)
+
         dataList.removeAt(position)
-        adapter.notifyDataSetChanged()
+        originalDataList.removeAt(originalPosition)
+        adapter.notifyItemRemoved(position)
         sharedPreferenceUtil.saveDataList(dataList)
+        sharedPreferenceUtil.saveDataList(originalDataList)
     }
 
     override fun onUpdateClick(position: Int, newText1: String, newText2: String) {
+        val currentItem = dataList[position]
+        val originalPosition = originalDataList.indexOf(currentItem)
+
         dataList[position] = YourDataItem(newText1, newText2)
-        adapter.notifyDataSetChanged()
+        originalDataList[originalPosition] = YourDataItem(newText1, newText2)
+        adapter.notifyItemChanged(position)
+
         sharedPreferenceUtil.saveDataList(dataList)
+        sharedPreferenceUtil.saveDataList(originalDataList)
     }
+
 }
