@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerapplication.R
 import com.example.recyclerapplication.sqlite_task.MainActivity1
 import com.example.recyclerapplication.sqlite_task.model.CourseModal
+import com.example.recyclerapplication.sqlite_task.model.DBHandler
 
 class CourseRVAdapter(
     private val courseModalArrayList: ArrayList<CourseModal>,
@@ -27,25 +28,23 @@ class CourseRVAdapter(
         private var isLongClick = false
 
         init {
-//            init {
-//                itemView.setOnClickListener {
+//            itemView.setOnClickListener {
+//                if (!isLongClick) {
+//                    // Handle normal click here
 //                    val position = adapterPosition
 //                    if (position != RecyclerView.NO_POSITION) {
-//                        val selectedCourse = courseModalArrayList[position]
-//
-//                        val intent = Intent(context, MainActivity1::class.java)
-//                        intent.putExtra("selectedCourse", selectedCourse)
-//                        context.startActivity(intent)
+//                        // Perform your normal click action
 //                    }
 //                }
 //            }
 
             itemView.setOnLongClickListener {
                 isLongClick = true
-                // Handle long click here
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    // Perform your delete action
+                    val courseToDelete = courseModalArrayList[position]
+                    deleteCourse(courseToDelete)
+
                     courseModalArrayList.removeAt(position)
                     notifyItemRemoved(position)
                 }
@@ -71,8 +70,16 @@ class CourseRVAdapter(
         holder.courseDescTV.text = modal.courseDescription
         holder.courseDurationTV.text = modal.courseDuration
         holder.courseTracksTV.text = modal.courseTracks
+    }
 
+    // Add this method to delete a course from the database
+    private fun deleteCourse(course: CourseModal) {
+        val dbHandler = DBHandler(context)
+        dbHandler.deleteCourse(course)
 
-
+        // After deleting, update the courseModalArrayList with fresh data
+        courseModalArrayList.clear()
+        courseModalArrayList.addAll(dbHandler.readCourses())
+        notifyDataSetChanged()
     }
 }
