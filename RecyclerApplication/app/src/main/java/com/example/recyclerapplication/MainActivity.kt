@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity(), OnDeleteClickListener, OnUpdateClickLi
             }
         })
 
-
         val submitButton = findViewById<Button>(R.id.submitButton)
         submitButton.setOnClickListener {
             val text1 = edittext1.text.toString()
