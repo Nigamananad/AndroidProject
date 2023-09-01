@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerapplication.R
 import com.example.recyclerapplication.sqlite_task.MainActivity1
@@ -18,40 +19,14 @@ class CourseRVAdapter(
 ) :
     RecyclerView.Adapter<CourseRVAdapter.ViewHolder>() {
 
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // creating variables for our text views.
         internal val courseNameTV: TextView = itemView.findViewById(R.id.idTVCourseName)
         internal val courseDescTV: TextView = itemView.findViewById(R.id.idTVCourseDescription)
         internal val courseDurationTV: TextView = itemView.findViewById(R.id.idTVCourseDuration)
         internal val courseTracksTV: TextView = itemView.findViewById(R.id.idTVCourseTracks)
-
-        private var isLongClick = false
-
-        init {
-//            itemView.setOnClickListener {
-//                if (!isLongClick) {
-//                    // Handle normal click here
-//                    val position = adapterPosition
-//                    if (position != RecyclerView.NO_POSITION) {
-//                        // Perform your normal click action
-//                    }
-//                }
-//            }
-
-            itemView.setOnLongClickListener {
-                isLongClick = true
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val courseToDelete = courseModalArrayList[position]
-                    deleteCourse(courseToDelete)
-
-                    courseModalArrayList.removeAt(position)
-                    notifyItemRemoved(position)
-                }
-                true
-            }
-        }
-
+        internal val cardView: CardView = itemView.findViewById(R.id.card_item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -70,16 +45,15 @@ class CourseRVAdapter(
         holder.courseDescTV.text = modal.courseDescription
         holder.courseDurationTV.text = modal.courseDuration
         holder.courseTracksTV.text = modal.courseTracks
+
+
+
+        holder.cardView.setOnLongClickListener {
+
+            return@setOnLongClickListener true
+        }
     }
 
-    // Add this method to delete a course from the database
-    private fun deleteCourse(course: CourseModal) {
-        val dbHandler = DBHandler(context)
-        dbHandler.deleteCourse(course)
+   // https://chat.chatgptdemo.net/
 
-        // After deleting, update the courseModalArrayList with fresh data
-        courseModalArrayList.clear()
-        courseModalArrayList.addAll(dbHandler.readCourses())
-        notifyDataSetChanged()
-    }
 }

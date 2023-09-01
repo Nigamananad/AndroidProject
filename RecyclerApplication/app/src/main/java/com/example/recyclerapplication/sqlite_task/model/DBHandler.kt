@@ -59,12 +59,6 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         cursorCourses.close()
         return courseModalArrayList
     }
-    fun deleteCourse(course: CourseModal) {
-        val db = writableDatabase
-        db.delete(TABLE_NAME, "$ID_COL=?", arrayOf(course.id.toString()))
-        db.close()
-    }
-
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)

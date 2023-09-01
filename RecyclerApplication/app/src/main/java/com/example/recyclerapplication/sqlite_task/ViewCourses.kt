@@ -26,4 +26,6 @@ class ViewCourses : AppCompatActivity() {
         coursesRV.layoutManager = linearLayoutManager
         coursesRV.adapter = courseRVAdapter
     }
+
+
 }
