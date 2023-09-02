@@ -9,7 +9,7 @@ import com.example.recyclerapplication.sqlite_task.adapter.CourseRVAdapter
 import com.example.recyclerapplication.sqlite_task.model.CourseModal
 import com.example.recyclerapplication.sqlite_task.model.DBHandler
 
-class ViewCourses : AppCompatActivity() {
+class ViewCourses : AppCompatActivity(), CourseRVAdapter.CourseDeleteListener {
     private var courseModalArrayList: ArrayList<CourseModal> = ArrayList()
     private lateinit var dbHandler: DBHandler
     private lateinit var courseRVAdapter: CourseRVAdapter
@@ -20,11 +20,19 @@ class ViewCourses : AppCompatActivity() {
 
         dbHandler = DBHandler(this)
         courseModalArrayList = dbHandler.readCourses()
-        courseRVAdapter = CourseRVAdapter(courseModalArrayList, this)
+        courseRVAdapter = CourseRVAdapter(courseModalArrayList, this, dbHandler, this)
         coursesRV = findViewById(R.id.idRVCourses)
         val linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         coursesRV.layoutManager = linearLayoutManager
         coursesRV.adapter = courseRVAdapter
+    }
+
+    override fun onDeleteCourse(courseId: Int) {
+        val position = courseModalArrayList.indexOfFirst { it.id == courseId }
+        if (position != -1) {
+            courseModalArrayList.removeAt(position)
+            courseRVAdapter.notifyItemRemoved(position)
+        }
     }
 
 
