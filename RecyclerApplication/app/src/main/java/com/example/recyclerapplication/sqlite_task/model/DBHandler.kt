@@ -48,6 +48,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
             do {
                 courseModalArrayList.add(
                     CourseModal(
+                        cursorCourses.getString(0),
                         cursorCourses.getString(1),
                         cursorCourses.getString(4),
                         cursorCourses.getString(2),
@@ -63,7 +64,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)
     }
-    fun deleteCourse(courseId: Int): Boolean {
+    fun deleteCourse(courseId: String): Boolean {
         try {
             val db = writableDatabase
             val whereClause = "$ID_COL = ?"

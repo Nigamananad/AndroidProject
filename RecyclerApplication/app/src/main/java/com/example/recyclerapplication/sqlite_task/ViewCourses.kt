@@ -2,6 +2,9 @@ package com.example.recyclerapplication.sqlite_task
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerapplication.R
@@ -18,6 +21,8 @@ class ViewCourses : AppCompatActivity(), CourseRVAdapter.CourseDeleteListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_courses)
 
+
+        val searchEditText = findViewById<EditText>(R.id.searchEditText)
         dbHandler = DBHandler(this)
         courseModalArrayList = dbHandler.readCourses()
         courseRVAdapter = CourseRVAdapter(courseModalArrayList, this, dbHandler, this)
@@ -25,15 +30,46 @@ class ViewCourses : AppCompatActivity(), CourseRVAdapter.CourseDeleteListener {
         val linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         coursesRV.layoutManager = linearLayoutManager
         coursesRV.adapter = courseRVAdapter
+
+
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s.toString().trim()
+                val filteredList = filterData(query)
+                courseRVAdapter.updateData(filteredList)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Not needed in this case
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // Not needed in this case
+            }
+        })
+
+
     }
 
-    override fun onDeleteCourse(courseId: Int) {
-        val position = courseModalArrayList.indexOfFirst { it.id == courseId }
-        if (position != -1) {
-            courseModalArrayList.removeAt(position)
-            courseRVAdapter.notifyItemRemoved(position)
+    private fun filterData(query: String): Any {
+        val filteredList = ArrayList<CourseModal>()
+        for (course in courseModalArrayList) {
+            if (course.courseName.contains(query, ignoreCase = true) ||
+                course.courseTracks.contains(query, ignoreCase = true) ||
+                course.courseDuration.contains(query, ignoreCase = true) ||
+                course.courseDescription.contains(query, ignoreCase = true)
+            ) {
+                filteredList.add(course)
+            }
         }
+        return filteredList
     }
+
+    override fun onDeleteCourse(courseId: String, position: Int) {
+        dbHandler.deleteCourse(courseId)
+        courseRVAdapter.deleteItem(position)
+    }
+
 
 
 }

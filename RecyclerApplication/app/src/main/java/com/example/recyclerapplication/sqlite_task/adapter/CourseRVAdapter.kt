@@ -1,7 +1,6 @@
 package com.example.recyclerapplication.sqlite_task.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import com.example.recyclerapplication.sqlite_task.model.CourseModal
 import com.example.recyclerapplication.sqlite_task.model.DBHandler
 
 class CourseRVAdapter(
-    private val courseModalArrayList: ArrayList<CourseModal>,
+    private var courseModalArrayList: ArrayList<CourseModal>,
     private val context: Context,
     private val dbHandler: DBHandler,
     private val deleteListener: CourseDeleteListener
@@ -35,7 +34,7 @@ class CourseRVAdapter(
     }
 
     interface CourseDeleteListener {
-        fun onDeleteCourse(courseId: Int)
+        fun onDeleteCourse(courseId: String,position: Int)
 
     }
 
@@ -66,7 +65,7 @@ class CourseRVAdapter(
             if (deleted) {
                 Toast.makeText(context, "Course deleted", Toast.LENGTH_SHORT).show()
                 // Notify the listener that a course has been deleted
-                deleteListener.onDeleteCourse(courseId)
+                deleteListener.onDeleteCourse(courseId,position)
             } else {
                 Toast.makeText(
                     context,
@@ -74,6 +73,18 @@ class CourseRVAdapter(
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
+
+    fun updateData(newData: Any) {
+        courseModalArrayList = newData as ArrayList<CourseModal>
+        notifyDataSetChanged()
+    }
+
+    fun deleteItem(position: Int) {
+        if (position >= 0 && position < courseModalArrayList.size) {
+            courseModalArrayList.removeAt(position)
+            notifyItemRemoved(position)
         }
     }
 
