@@ -17,12 +17,14 @@ class ViewCourses : AppCompatActivity(), CourseRVAdapter.CourseDeleteListener {
     private lateinit var dbHandler: DBHandler
     private lateinit var courseRVAdapter: CourseRVAdapter
     private lateinit var coursesRV: RecyclerView
+    private var recentlyDeletedItemId: String? = null
+    private lateinit var searchEditText:EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_courses)
 
 
-        val searchEditText = findViewById<EditText>(R.id.searchEditText)
+         searchEditText = findViewById(R.id.searchEditText)
         dbHandler = DBHandler(this)
         courseModalArrayList = dbHandler.readCourses()
         courseRVAdapter = CourseRVAdapter(courseModalArrayList, this, dbHandler, this)
@@ -51,7 +53,7 @@ class ViewCourses : AppCompatActivity(), CourseRVAdapter.CourseDeleteListener {
 
     }
 
-    private fun filterData(query: String): Any {
+    private fun filterData(query: String): ArrayList<CourseModal> {
         val filteredList = ArrayList<CourseModal>()
         for (course in courseModalArrayList) {
             if (course.courseName.contains(query, ignoreCase = true) ||
@@ -59,7 +61,9 @@ class ViewCourses : AppCompatActivity(), CourseRVAdapter.CourseDeleteListener {
                 course.courseDuration.contains(query, ignoreCase = true) ||
                 course.courseDescription.contains(query, ignoreCase = true)
             ) {
-                filteredList.add(course)
+                if (course.id != recentlyDeletedItemId) {
+                    filteredList.add(course)
+                }
             }
         }
         return filteredList
@@ -67,7 +71,14 @@ class ViewCourses : AppCompatActivity(), CourseRVAdapter.CourseDeleteListener {
 
     override fun onDeleteCourse(courseId: String, position: Int) {
         dbHandler.deleteCourse(courseId)
-        courseRVAdapter.deleteItem(position)
+        recentlyDeletedItemId = courseId
+        courseModalArrayList.removeAt(position)
+
+        // Remove the item from the filtered list as well
+        val filteredList = filterData(searchEditText.text.toString().trim())
+        courseRVAdapter.updateData(filteredList)
+
+        courseRVAdapter.notifyItemRemoved(position)
     }
 
 
