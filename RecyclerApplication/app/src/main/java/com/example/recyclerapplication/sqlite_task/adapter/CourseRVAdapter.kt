@@ -1,5 +1,6 @@
 package com.example.recyclerapplication.sqlite_task.adapter
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerapplication.R
 import com.example.recyclerapplication.sqlite_task.model.CourseModal
 import com.example.recyclerapplication.sqlite_task.model.DBHandler
+import java.util.Calendar
 
 class CourseRVAdapter(
     private var courseModalArrayList: ArrayList<CourseModal>,
@@ -30,11 +32,44 @@ class CourseRVAdapter(
         internal val courseTracksTV: TextView = itemView.findViewById(R.id.idTVCourseTracks)
         internal val btnDelete: ImageButton = itemView.findViewById(R.id.btn_delete)
         internal val cardView: CardView = itemView.findViewById(R.id.card_item)
+        internal val courseDate: TextView = itemView.findViewById(R.id.updateeditTextDate)
+        internal val imgDate: ImageButton = itemView.findViewById(R.id.updateimageButtonDatePicker)
+
+        lateinit var modal: CourseModal
+
+        init {
+            // Initialize modal variable with data when ViewHolder is created
+            imgDate.setOnClickListener {
+                openDatePicker()
+            }
+        }
+
+        private fun openDatePicker() {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+                context,
+                DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
+                    // Set the selected date to the modal object
+                    modal.date = "$selectedYear-${selectedMonth + 1}-$selectedDay"
+                    // Update the date TextView in the card view
+                    courseDate.text = modal.date
+                },
+                year,
+                month,
+                day
+            )
+
+            datePickerDialog.show()
+        }
 
     }
 
     interface CourseDeleteListener {
-        fun onDeleteCourse(courseId: String,position: Int)
+        fun onDeleteCourse(courseId: String, position: Int)
 
     }
 
@@ -49,12 +84,31 @@ class CourseRVAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val modal = courseModalArrayList[position]
-        holder.courseNameTV.text = modal.courseName
-        holder.courseDescTV.text = modal.courseDescription
-        holder.courseDurationTV.text = modal.courseDuration
-        holder.courseTracksTV.text = modal.courseTracks
+        holder.modal = courseModalArrayList[position]
+        holder.courseNameTV.text = holder.modal.courseName
+        holder.courseDescTV.text = holder.modal.courseDescription
+        holder.courseDurationTV.text = holder.modal.courseDuration
+        holder.courseTracksTV.text = holder.modal.courseTracks
+        holder.courseDate.text = holder.modal.date
 
+//        holder.imgDate.setOnClickListener {
+//            val calendar = Calendar.getInstance()
+//            val year = calendar.get(Calendar.YEAR)
+//            val month = calendar.get(Calendar.MONTH)
+//            val day = calendar.get(Calendar.DAY_OF_MONTH)
+//
+//            val datePickerDialog = DatePickerDialog(
+//                context,
+//                DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
+//                    val selectedDate = "$selectedYear-${selectedMonth + 1}-$selectedDay"
+//                    holder.courseDate.setText(selectedDate)
+//                },
+//                year,
+//                month,
+//                day
+//            )
+//            datePickerDialog.show()
+//        }
 
         holder.btnDelete.setOnClickListener {
             val modal = courseModalArrayList[position]
@@ -65,7 +119,7 @@ class CourseRVAdapter(
             if (deleted) {
                 Toast.makeText(context, "Course deleted", Toast.LENGTH_SHORT).show()
                 // Notify the listener that a course has been deleted
-                deleteListener.onDeleteCourse(courseId,position)
+                deleteListener.onDeleteCourse(courseId, position)
             } else {
                 Toast.makeText(
                     context,
@@ -75,6 +129,7 @@ class CourseRVAdapter(
             }
         }
     }
+
 
     fun updateData(newData: Any) {
         courseModalArrayList = newData as ArrayList<CourseModal>

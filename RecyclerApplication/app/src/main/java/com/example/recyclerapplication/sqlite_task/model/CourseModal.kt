@@ -8,23 +8,24 @@ class CourseModal(
     var courseName: String,
     var courseDuration: String,
     var courseTracks: String,
-    var courseDescription: String
+    var courseDescription: String,
+    var date:String
 ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
+        parcel.readString()!!,
         parcel.readString()!!
-    ) {
-    }
-
+    )
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(courseName)
         parcel.writeString(courseDuration)
         parcel.writeString(courseTracks)
         parcel.writeString(courseDescription)
+        parcel.writeString(date)
     }
 
     override fun describeContents(): Int {

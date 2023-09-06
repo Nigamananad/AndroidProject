@@ -56,6 +56,32 @@
             android:padding="3dp"
             android:text="Description"
             android:textColor="@color/black" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/updateeditTextDate"
+                android:layout_width="280dp"
+                android:layout_height="48dp"
+                android:hint="Select Date"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/imageButtonDatePicker"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/updateimageButtonDatePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_dialog_info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
         <ImageButton
             android:id="@+id/btn_delete"
             android:src="@drawable/baseline_delete_24"

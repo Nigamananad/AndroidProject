@@ -16,6 +16,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         private const val NAME_COL = "name"
         private const val DURATION_COL = "duration"
         private const val DESCRIPTION_COL = "description"
+        private const val DATE = "date"
         private const val TRACKS_COL = "tracks"
     }
 
@@ -25,16 +26,24 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
                 "$NAME_COL TEXT, " +
                 "$DURATION_COL TEXT, " +
                 "$DESCRIPTION_COL TEXT, " +
+                "$DATE TEXT," +
                 "$TRACKS_COL TEXT)"
         db.execSQL(query)
     }
 
-    fun addNewCourse(courseName: String, courseDuration: String, courseDescription: String, courseTracks: String) {
+    fun addNewCourse(
+        courseName: String,
+        courseDuration: String,
+        courseDescription: String,
+        courseDAte: String,
+        courseTracks: String
+    ) {
         val db = writableDatabase
         val values = ContentValues()
         values.put(NAME_COL, courseName)
         values.put(DURATION_COL, courseDuration)
         values.put(DESCRIPTION_COL, courseDescription)
+        values.put(DATE, courseDAte)
         values.put(TRACKS_COL, courseTracks)
         db.insert(TABLE_NAME, null, values)
     }
@@ -50,9 +59,10 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
                     CourseModal(
                         cursorCourses.getString(0),
                         cursorCourses.getString(1),
-                        cursorCourses.getString(4),
                         cursorCourses.getString(2),
-                        cursorCourses.getString(3)
+                        cursorCourses.getString(3),
+                        cursorCourses.getString(4),
+                        cursorCourses.getString(5)
                     )
                 )
             } while (cursorCourses.moveToNext())
@@ -60,10 +70,13 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         cursorCourses.close()
         return courseModalArrayList
     }
+
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)
     }
+
+
     fun deleteCourse(courseId: String): Boolean {
         try {
             val db = writableDatabase
