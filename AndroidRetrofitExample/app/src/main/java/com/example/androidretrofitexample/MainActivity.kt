@@ -48,12 +48,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadUserList() {
-        service.getUserList(2).enqueue(object : Callback<MainResponse> {
+        service.getUserList().enqueue(object : Callback<MainResponse> {
             override fun onResponse(call: Call<MainResponse>, response: Response<MainResponse>) {
                 if (response.isSuccessful) {
                     val res = response.body()
-                    binding.tvpage1.text = res!!.page.toString()
-                    userList = res!!.data as MutableList<Data>
+//                    binding.tvpage1.text = res!!.page.toString()
+//                    userList = res!!.data as MutableList<Data>
+//                    listAdapter.setItem(userList)
+                    userList = res!!.data
                     listAdapter.setItem(userList)
                 }
             }

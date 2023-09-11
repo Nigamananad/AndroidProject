@@ -7,6 +7,6 @@ import retrofit2.http.Query
 
 
 interface ApiService {
-    @GET("users")
-    fun getUserList(@Query("page") page: Int): Call<MainResponse>
+    @GET("users?page=2")
+    fun getUserList(): Call<MainResponse>
 }
