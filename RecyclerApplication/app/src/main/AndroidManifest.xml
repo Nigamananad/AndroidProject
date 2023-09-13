@@ -17,8 +17,11 @@
         android:theme="@style/Theme.RecyclerApplication"
         tools:targetApi="31">
         <activity
-            android:name=".implicit_intent.DatePickerActivity"
-            android:exported="true" >
+            android:name=".sqlite_task_like_dislike.LikeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".sqlite_task_like_dislike.ShowActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,16 +29,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".implicit_intent.DatePickerActivity"
+            android:exported="true"></activity>
+        <activity
             android:name=".sqlite_task.ViewCourses"
             android:exported="false" />
         <activity
             android:name=".sqlite_task.MainActivity1"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".layout_params.LayoutParamsActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".implicit_intent.FragmentActivity"
             android:exported="true" />
