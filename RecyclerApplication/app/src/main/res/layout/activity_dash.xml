@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".sqlite_task_like_dislike.DashActivity">
+
+
+    <Button
+        android:id="@+id/btnAllList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="All List" />
+
+    <Button
+        android:id="@+id/btnLikeList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Like List" />
+
+    <Button
+        android:id="@+id/btnDislikeList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dislike List" />
+
+</LinearLayout>

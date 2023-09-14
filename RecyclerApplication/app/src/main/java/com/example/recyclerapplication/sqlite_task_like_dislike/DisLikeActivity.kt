@@ -3,33 +3,26 @@ package com.example.recyclerapplication.sqlite_task_like_dislike
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerapplication.R
-import com.example.recyclerapplication.databinding.ActivityLikeBinding
-import com.example.recyclerapplication.databinding.ActivityShowBinding
+import com.example.recyclerapplication.databinding.ActivityDisLikeBinding
 import com.example.recyclerapplication.sqlite_task_like_dislike.adapter.MyAdapter
 import com.example.recyclerapplication.sqlite_task_like_dislike.model.DatabaseHelper
-import com.example.recyclerapplication.sqlite_task_like_dislike.model.SeriesNo
 
-class LikeActivity : AppCompatActivity() {
-
+class DisLikeActivity : AppCompatActivity() {
     private lateinit var dbHelper: DatabaseHelper
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var binding: ActivityLikeBinding
-    private lateinit var adapter: MyAdapter // MyAdapter ko aap apne Adapter ke naam ke sath replace karenge
-    private val likedItems = mutableListOf<SeriesNo>()
+    private lateinit var adapter: MyAdapter
+    private lateinit var binding: ActivityDisLikeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityLikeBinding.inflate(layoutInflater)
+        binding = ActivityDisLikeBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         dbHelper = DatabaseHelper(this)
-
         val layoutManager = LinearLayoutManager(this)
-        binding.recyclerLikeItem.layoutManager = layoutManager
+        binding.recyclerDislikeItem.layoutManager = layoutManager
 
         adapter = MyAdapter(
-            dbHelper.getNewLikedItems(), { likeItem ->
+            dbHelper.getDislikedItems(), { likeItem ->
                 dbHelper.likeItem(likeItem.id)
                 likeItem.likeStatus = 1
                 likeItem.disLikeStatus = 0
@@ -42,6 +35,6 @@ class LikeActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
         )
-        binding.recyclerLikeItem.adapter = adapter
+        binding.recyclerDislikeItem.adapter = adapter
     }
 }

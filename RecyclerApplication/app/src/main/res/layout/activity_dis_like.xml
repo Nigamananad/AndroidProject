@@ -4,18 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".sqlite_task_like_dislike.ShowActivity">
+    tools:context=".sqlite_task_like_dislike.DisLikeActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_sqlite"
+        android:id="@+id/recycler_dislike_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-    android:id="@+id/clearAll"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="50dp"
-    android:text="Clear All Data" />
+        android:layout_height="wrap_content"/>
 </LinearLayout>

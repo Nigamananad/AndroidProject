@@ -6,44 +6,50 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerapplication.R
+import com.example.recyclerapplication.databinding.ActivityShowBinding
 import com.example.recyclerapplication.sqlite_task_like_dislike.adapter.MyAdapter
 import com.example.recyclerapplication.sqlite_task_like_dislike.model.DatabaseHelper
 import com.example.recyclerapplication.sqlite_task_like_dislike.model.SeriesNo
 
 class ShowActivity : AppCompatActivity() {
-    lateinit var dbHelper: DatabaseHelper
-    lateinit var recyclerView: RecyclerView
-    private var dataList = mutableListOf<SeriesNo>()
+    private lateinit var binding: ActivityShowBinding
+    private lateinit var dbHelper: DatabaseHelper
+    private lateinit var adapter: MyAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivityShowBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_show)
+        setContentView(binding.root)
 
         dbHelper = DatabaseHelper(this)
-        recyclerView = findViewById(R.id.recyclerView_sqlite)
 
-        val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
-        dbHelper.insertStaticData()
-        fetchDataFromDatabase()
+        dbHelper.insertItem("itemName1", 0, 0)
+        dbHelper.insertItem("itemName3", 0, 0)
+        dbHelper.insertItem("itemName4", 0, 0)
+        dbHelper.insertItem("itemName2", 0, 0)
 
-        val adapter = MyAdapter(this, dataList)
-        recyclerView.adapter = adapter
-    }
 
-    @SuppressLint("Range")
-    private fun fetchDataFromDatabase() {
-        val cursor = dbHelper.getAllData()
-        dataList.clear()
+        adapter = MyAdapter(dbHelper.getAllItems(), { likeItem ->
+            dbHelper.likeItem(likeItem.id)
+            likeItem.likeStatus = 1
+            likeItem.disLikeStatus = 0
+            adapter.notifyDataSetChanged()
+        }, { item ->
+            dbHelper.dislikeItem(item.id)
+            item.likeStatus = 0
+            item.disLikeStatus = -1
+            adapter.notifyDataSetChanged()
+        })
 
-        while (cursor.moveToNext()) {
-            val id = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID))
-            val seriesNo = cursor.getString(cursor.getColumnIndex(DatabaseHelper.SERIES))
-
-            val series = SeriesNo(id, seriesNo)
-            dataList.add(series)
+        binding.apply {
+            recyclerViewSqlite.adapter = adapter
+            recyclerViewSqlite.layoutManager = LinearLayoutManager(this@ShowActivity)
         }
-
-        cursor.close()
+        binding.clearAll.setOnClickListener {
+            dbHelper.clearTable(DatabaseHelper.TABLE_NAME)
+            // Notify the adapter that the data has changed (list is now empty)
+            adapter.updateData(emptyList())
+        }
+        
     }
 
 }
