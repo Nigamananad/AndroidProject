@@ -1,5 +1,6 @@
 package com.example.recyclerapplication.sqlite_task_like_dislike
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,8 @@ class DisLikeActivity : AppCompatActivity() {
     private lateinit var dbHelper: DatabaseHelper
     private lateinit var adapter: MyAdapter
     private lateinit var binding: ActivityDisLikeBinding
+
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityDisLikeBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -23,15 +26,17 @@ class DisLikeActivity : AppCompatActivity() {
 
         adapter = MyAdapter(
             dbHelper.getDislikedItems(), { likeItem ->
-                dbHelper.likeItem(likeItem.id)
                 likeItem.likeStatus = 1
                 likeItem.disLikeStatus = 0
+                dbHelper.likeItem(likeItem.likeStatus, likeItem.id)
+                dbHelper.dislikeItem(likeItem.disLikeStatus, likeItem.id)
                 adapter.notifyDataSetChanged()
             },
             { item ->
-                dbHelper.dislikeItem(item.id)
                 item.likeStatus = 0
                 item.disLikeStatus = -1
+                dbHelper.likeItem(item.likeStatus, item.id)
+                dbHelper.dislikeItem(item.disLikeStatus, item.id)
                 adapter.notifyDataSetChanged()
             }
         )

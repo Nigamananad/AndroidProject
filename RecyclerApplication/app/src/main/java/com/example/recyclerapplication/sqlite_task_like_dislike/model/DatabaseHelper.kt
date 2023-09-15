@@ -22,17 +22,17 @@ class DatabaseHelper(context: Context) :
         private const val COLUMN_DISLIKE = "dis_Like_Status"
     }
 
-    override fun onCreate(db: SQLiteDatabase?) {
+    override fun onCreate(db: SQLiteDatabase) {
         val createTableQuery = "CREATE TABLE $TABLE_NAME " +
                 "($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "$COLUMN_NAME TEXT, " +
                 "$COLUMN_LIKE INTEGER, " +
                 "$COLUMN_DISLIKE INTEGER )"
-        db?.execSQL(createTableQuery)
+        db.execSQL(createTableQuery)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)
     }
 
@@ -43,7 +43,7 @@ class DatabaseHelper(context: Context) :
         values.put(COLUMN_LIKE, likeStatus)
         values.put(COLUMN_DISLIKE, disLikeStatus)
         val id = db.insert(TABLE_NAME, null, values)
-        db.close()
+//        db.close()
         return id
     }
 
@@ -64,28 +64,28 @@ class DatabaseHelper(context: Context) :
             } while (cursor.moveToNext())
         }
         cursor.close()
-        db.close()
+//        db.close()
         return itemList
     }
 
     fun clearTable(tableName: String) {
         val db = this.writableDatabase
         db.execSQL("DELETE FROM $tableName")
-        db.close()
+//        db.close()
     }
 
-    fun likeItem(itemId: Int) {
+    fun likeItem(likeStatus: Int, itemId: Int) {
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(COLUMN_LIKE, 1) // Set like status to 1
+        values.put(COLUMN_LIKE, likeStatus) // Set like status to 1
         db.update(TABLE_NAME, values, "$COLUMN_ID=?", arrayOf(itemId.toString()))
         db.close()
     }
 
-    fun dislikeItem(itemId: Int) {
+    fun dislikeItem( disLike:Int,itemId: Int) {
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(COLUMN_DISLIKE, -1) // Set like status to -1
+        values.put(COLUMN_DISLIKE, disLike) // Set like status to -1
         db.update(TABLE_NAME, values, "$COLUMN_ID=?", arrayOf(itemId.toString()))
         db.close()
     }
@@ -107,7 +107,7 @@ class DatabaseHelper(context: Context) :
             } while (cursor.moveToNext())
         }
         cursor.close()
-        db.close()
+//        db.close()
         return dislikedItemList
     }
 
@@ -128,7 +128,7 @@ class DatabaseHelper(context: Context) :
             } while (cursor.moveToNext())
         }
         cursor.close()
-        db.close()
+//        db.close()
         return likedItemList
     }
 }

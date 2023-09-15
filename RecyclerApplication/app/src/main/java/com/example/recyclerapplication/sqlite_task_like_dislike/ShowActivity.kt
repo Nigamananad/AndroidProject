@@ -15,6 +15,7 @@ class ShowActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowBinding
     private lateinit var dbHelper: DatabaseHelper
     private lateinit var adapter: MyAdapter
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityShowBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -29,14 +30,16 @@ class ShowActivity : AppCompatActivity() {
 
 
         adapter = MyAdapter(dbHelper.getAllItems(), { likeItem ->
-            dbHelper.likeItem(likeItem.id)
             likeItem.likeStatus = 1
             likeItem.disLikeStatus = 0
+            dbHelper.likeItem(likeItem.likeStatus,likeItem.id)
+            dbHelper.dislikeItem(likeItem.disLikeStatus, likeItem.id)
             adapter.notifyDataSetChanged()
         }, { item ->
-            dbHelper.dislikeItem(item.id)
             item.likeStatus = 0
             item.disLikeStatus = -1
+            dbHelper.likeItem(item.likeStatus, item.id)
+            dbHelper.dislikeItem(item.disLikeStatus, item.id)
             adapter.notifyDataSetChanged()
         })
 
