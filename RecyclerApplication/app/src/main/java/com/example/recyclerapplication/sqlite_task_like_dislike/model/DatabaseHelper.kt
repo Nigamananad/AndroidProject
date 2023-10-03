@@ -94,7 +94,7 @@ class DatabaseHelper(context: Context) :
     fun getDislikedItems(): List<SeriesNo> {
         val dislikedItemList = mutableListOf<SeriesNo>()
         val db = this.readableDatabase
-        val query = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_DISLIKE = -1"
+        val query = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_DISLIKE = 1"
         val cursor: Cursor = db.rawQuery(query, null)
 
         if (cursor.moveToFirst()) {

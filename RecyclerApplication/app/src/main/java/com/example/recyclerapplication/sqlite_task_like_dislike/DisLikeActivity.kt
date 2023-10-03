@@ -24,22 +24,22 @@ class DisLikeActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerDislikeItem.layoutManager = layoutManager
 
-        adapter = MyAdapter(
-            dbHelper.getDislikedItems(), { likeItem ->
-                likeItem.likeStatus = 1
-                likeItem.disLikeStatus = 0
-                dbHelper.likeItem(likeItem.likeStatus, likeItem.id)
-                dbHelper.dislikeItem(likeItem.disLikeStatus, likeItem.id)
-                adapter.notifyDataSetChanged()
-            },
-            { item ->
-                item.likeStatus = 0
-                item.disLikeStatus = -1
-                dbHelper.likeItem(item.likeStatus, item.id)
-                dbHelper.dislikeItem(item.disLikeStatus, item.id)
-                adapter.notifyDataSetChanged()
-            }
-        )
+//        adapter = MyAdapter(
+//            dbHelper.getDislikedItems(), { likeItem ->
+//                likeItem.likeStatus = 1
+//                likeItem.disLikeStatus = 0
+//                dbHelper.likeItem(likeItem.likeStatus, likeItem.id)
+//                dbHelper.dislikeItem(likeItem.disLikeStatus, likeItem.id)
+//                adapter.notifyDataSetChanged()
+//            },
+//            { item ->
+//                item.likeStatus = 0
+//                item.disLikeStatus = 1
+//                dbHelper.likeItem(item.likeStatus, item.id)
+//                dbHelper.dislikeItem(item.disLikeStatus, item.id)
+//                adapter.notifyDataSetChanged()
+//            }
+//        )
         binding.recyclerDislikeItem.adapter = adapter
     }
 }

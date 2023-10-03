@@ -29,19 +29,45 @@ class ShowActivity : AppCompatActivity() {
         dbHelper.insertItem("itemName2", 0, 0)
 
 
-        adapter = MyAdapter(dbHelper.getAllItems(), { likeItem ->
-            likeItem.likeStatus = 1
-            likeItem.disLikeStatus = 0
-            dbHelper.likeItem(likeItem.likeStatus,likeItem.id)
-            dbHelper.dislikeItem(likeItem.disLikeStatus, likeItem.id)
-            adapter.notifyDataSetChanged()
-        }, { item ->
-            item.likeStatus = 0
-            item.disLikeStatus = -1
-            dbHelper.likeItem(item.likeStatus, item.id)
-            dbHelper.dislikeItem(item.disLikeStatus, item.id)
-            adapter.notifyDataSetChanged()
-        })
+//        adapter = MyAdapter(dbHelper.getAllItems(), { likeItem ->
+//            likeItem.likeStatus = 1
+//            likeItem.disLikeStatus = 0
+//            dbHelper.likeItem(likeItem.likeStatus,likeItem.id)
+//            dbHelper.dislikeItem(likeItem.disLikeStatus, likeItem.id)
+//            adapter.notifyDataSetChanged()
+//        }, { item ->
+//            item.likeStatus = 0
+//            item.disLikeStatus = 1
+//            dbHelper.likeItem(item.likeStatus, item.id)
+//            dbHelper.dislikeItem(item.disLikeStatus, item.id)
+//            adapter.notifyDataSetChanged()
+//        })
+
+//        adapter = MyAdapter(
+//            dbHelper.getAllItems(),
+//            object : OnLikeClickListener {
+//                override fun onLikeClick(item: SeriesNo) {
+//                    item.likeStatus = 1
+//                    item.disLikeStatus = 0
+//                    dbHelper.likeItem(item.likeStatus, item.id)
+//                    dbHelper.dislikeItem(item.disLikeStatus, item.id)
+//                    adapter.notifyDataSetChanged()
+//                }
+//            },
+//            object : OnDislikeClickListener {
+//                override fun onDislikeClick(item: SeriesNo) {
+//                    item.disLikeStatus = 1
+//                    item.likeStatus = 0
+//                    dbHelper.dislikeItem(item.disLikeStatus, item.id)
+//                    dbHelper.likeItem(item.likeStatus, item.id)
+//                    adapter.notifyDataSetChanged()
+//                }
+//            }
+//        )
+
+        binding.recyclerViewSqlite.adapter = adapter // Adapter ko RecyclerView se jodna
+
+
 
         binding.apply {
             recyclerViewSqlite.adapter = adapter
