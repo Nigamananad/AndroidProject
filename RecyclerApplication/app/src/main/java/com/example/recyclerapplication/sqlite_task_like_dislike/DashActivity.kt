@@ -17,7 +17,6 @@ class DashActivity : AppCompatActivity() {
         binding.btnAllList.setOnClickListener {
             startActivity(Intent(this, ShowActivity::class.java))
         }
-
         binding.btnLikeList.setOnClickListener {
             startActivity(Intent(this, LikeActivity::class.java))
         }
