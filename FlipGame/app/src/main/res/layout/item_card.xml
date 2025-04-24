@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="@dimen/_2sdp"
+    android:layout_height="wrap_content">
+    <!-- Front side (Hidden initially) -->
+    <ImageView
+        android:id="@+id/imageFront"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_110sdp"
+        android:adjustViewBounds="true"
+        android:visibility="gone" />
+
+    <!-- Back side (Initially visible) -->
+    <ImageView
+        android:id="@+id/imageBack"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_110sdp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/back" />
+</FrameLayout>

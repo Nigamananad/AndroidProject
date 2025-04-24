@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/allbg"
+    tools:context=".activity.StartScreenActivity">
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="@dimen/_230sdp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="@dimen/_minus30sdp"
+        android:layout_gravity="center_horizontal"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/start_lottie" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:fontFamily="@font/intermedium"
+            android:text="Welcome to NoNetGame Explore \n &amp; lets begin playing!"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+    <TextView
+        android:text="Your adventure starts now! Hit 'Play Now' and dive into a thrilling journey."
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/intermedium"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_40sdp"
+        android:gravity="center"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <Button
+            android:id="@+id/btnGetStarted"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_13sdp"
+            android:fontFamily="@font/intermedium"
+            android:backgroundTint="#004D40"
+            android:textColor="@color/white"
+            android:layout_marginEnd="@dimen/_3sdp"
+            android:text="Play Now" />
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:textSize="@dimen/_13sdp"
+            android:backgroundTint="#80CBC4"
+            android:text="Setting"
+            android:fontFamily="@font/intermedium"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:textColor="#263238"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

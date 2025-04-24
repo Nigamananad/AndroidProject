@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/dialog_background"
+        android:padding="@dimen/_16sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- Title -->
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/dialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Congratulations!"
+            android:textColor="#00796B"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Message -->
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/dialogMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="You’ve completed \nlevel!"
+            android:textColor="#4B938D"
+            android:textSize="16sp" />
+
+        <!-- Button -->
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/btnNextLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#00796B"
+            android:text="Next Level"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</LinearLayout>

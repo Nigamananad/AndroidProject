@@ -25,10 +25,13 @@
         android:theme="@style/Theme.Permissions"
         tools:targetApi="31">
         <activity
-            android:name=".ImagePickerActivity"
+            android:name=".MainActivity2"
             android:exported="true" >
 
         </activity>
+        <activity
+            android:name=".ImagePickerActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

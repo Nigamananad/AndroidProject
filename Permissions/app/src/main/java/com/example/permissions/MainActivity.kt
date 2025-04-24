@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 })
         }.create()
 
-        alertDialog.setOnCancelListener { 
+        alertDialog.setOnCancelListener {
             // Handle cancel (clicking outside the dialog) action here
             // For example, you can do nothing or show a message
         }
@@ -124,15 +124,36 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnCamera1.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 90)
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.CAMERA
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.CAMERA),
+                    90
+                )
             } else {
                 // यहां अनुमति की आवश्यकता होने पर काम करने वाले कोड को डालें...
             }
         }
 
+
+
+        binding.btnNavigate.setOnClickListener {
+            startActivity(Intent(this, MainActivity2::class.java))
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+        }
+
+
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+//        overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+        overridePendingTransition(R.anim.slide_out_top,R.anim.slide_in_bottom) 
+    }
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -141,6 +162,7 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
     }
+
     //Multiple Permission
     private val multiplePermission =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
